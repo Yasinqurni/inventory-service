@@ -5,6 +5,7 @@ import (
 
 	"github.com/Yasinqurni/be-project/pkg/database"
 	"github.com/Yasinqurni/be-project/pkg/env"
+	"github.com/Yasinqurni/be-project/src/app/inventory/model"
 	"github.com/Yasinqurni/be-project/src/routes"
 	"github.com/gin-gonic/gin"
 )
@@ -14,6 +15,7 @@ func InitProject() {
 	config, _ := env.LoadConfig()
 
 	db := database.InitDB(config)
+	db.AutoMigrate(&model.Inventory{})
 
 	r := gin.Default()
 
