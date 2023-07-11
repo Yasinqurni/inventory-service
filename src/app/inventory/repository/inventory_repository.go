@@ -34,7 +34,7 @@ func (r *inventoryRepositoryImpl) Update(id uint, inventory *model.Inventory) er
 
 func (r *inventoryRepositoryImpl) Get(id uint) (*model.Inventory, error) {
 	var inventory model.Inventory
-	err := r.db.Where("id = ?", id).Find(&inventory).Error
+	err := r.db.Where("id = ?", id).Where("delete_at = ?", "").Find(&inventory).Error
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (r *inventoryRepositoryImpl) Delete(id uint) error {
 
 func (r *inventoryRepositoryImpl) List() (*[]model.Inventory, error) {
 	var inventory []model.Inventory
-	err := r.db.Find(&inventory).Error
+	err := r.db.Find(&inventory).Where("delete_at = ?", "").Error
 	if err != nil {
 		return nil, err
 	}
